@@ -5,7 +5,7 @@ using CoreEscuela.Entidades;
 
 namespace CoreEscuela
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
 
@@ -16,7 +16,7 @@ namespace CoreEscuela
 
         public void Inicializar()
         {
-            Escuela = new Escuela("Platzi Academay", 2012, TiposEscuela.Primaria,
+            Escuela = new Escuela("Platzi Academy", 2012, TiposEscuela.Primaria,
             ciudad: "Bogotá", pais: "Colombia"
             );
 
@@ -28,7 +28,31 @@ namespace CoreEscuela
 
         private void CargarEvaluaciones()
         {
-            throw new NotImplementedException();
+            foreach (Curso curso in Escuela.Cursos)
+            {
+                foreach (Asignatura asignatura in curso.Asignaturas)
+                {
+                    foreach (Alumno alumno in curso.Alumnos)
+                    {
+                        var rnd = new Random(System.Environment.TickCount);
+
+                        Evaluación[] evArray = new Evaluación[5];
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Evaluación ev = new Evaluación
+                            {
+                                Asignatura = asignatura,
+                                Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
+                                Nota = (float)(5 * rnd.NextDouble())
+                            };
+                            evArray[i] = ev;
+                        }
+                        alumno.Evaluaciones.AddRange(evArray);
+                    }
+                }
+            }
+
         }
 
         private void CargarAsignaturas()
