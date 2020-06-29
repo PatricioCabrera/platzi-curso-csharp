@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
+using Etapa1.Entidades;
 using static System.Console;
 
 namespace CoreEscuela
@@ -15,6 +17,11 @@ namespace CoreEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             ImpimirCursosEscuela(engine.Escuela);
             var listaObjetos = engine.GetObjetoEscuela();
+            var listaILugar = from obj in listaObjetos
+                              where obj is ILugar
+                              select obj;
+
+            //engine.Escuela.LimpiarLugar();
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
