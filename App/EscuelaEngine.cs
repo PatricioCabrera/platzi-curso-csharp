@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
+using csharp.Entidades;
 
 namespace CoreEscuela
 {
@@ -44,7 +45,8 @@ namespace CoreEscuela
                             {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
-                                Nota = (float)(5 * rnd.NextDouble())
+                                Nota = (float)(5 * rnd.NextDouble()),
+                                Alumno = alumno
                             };
                             evArray[i] = ev;
                         }
@@ -53,6 +55,26 @@ namespace CoreEscuela
                 }
             }
 
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuela()
+        {
+            List<ObjetoEscuelaBase> listaObj = new List<ObjetoEscuelaBase>();
+            listaObj.Add(Escuela);
+            listaObj.AddRange(Escuela.Cursos);
+
+            foreach (var curso in Escuela.Cursos)
+            {
+                listaObj.AddRange(curso.Asignaturas);
+                listaObj.AddRange(curso.Alumnos);
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listaObj.AddRange(alumno.Evaluaciones);
+                }
+            }
+
+            return listaObj;
         }
 
         private void CargarAsignaturas()
