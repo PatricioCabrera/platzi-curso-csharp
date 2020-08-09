@@ -16,13 +16,16 @@ namespace CoreEscuela
             engine.Inicializar();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             ImpimirCursosEscuela(engine.Escuela);
-            var listaObjetos = engine.GetObjetoEscuela(true, false, false, false);
 
-            //var listaILugar = from obj in listaObjetos
-            //                  where obj is ILugar
-            //                  select obj;
+            Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
-            //engine.Escuela.LimpiarLugar();
+            diccionario.Add(10, "JuanK");
+            diccionario.Add(23, "Lorem Ipsum");
+
+            foreach ( var keyValPair in diccionario)
+            {
+                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
+            }
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
