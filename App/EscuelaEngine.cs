@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
 using csharp.Entidades;
+using Etapa1.Entidades;
 
 namespace CoreEscuela
 {
@@ -26,13 +27,32 @@ namespace CoreEscuela
             CargarEvaluaciones();
         }
 
-        public Dictionary<string, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
         {
-            Dictionary<string, IEnumerable <ObjetoEscuelaBase> > diccionario = new Dictionary<string, IEnumerable <ObjetoEscuelaBase>>();
+            Dictionary<LlaveDiccionario, IEnumerable <ObjetoEscuelaBase>> diccionario = new Dictionary<LlaveDiccionario, IEnumerable <ObjetoEscuelaBase>>();
 
-            diccionario.Add("Escuela", new List<ObjetoEscuelaBase> {Escuela});
-            diccionario.Add("Cursos", Escuela.Cursos);
+            diccionario.Add(LlaveDiccionario.Escuela, new List<ObjetoEscuelaBase> {Escuela});
+            diccionario.Add(LlaveDiccionario.Curso, Escuela.Cursos);
 
+            var listatmp = new List<Evaluación>();
+            var listatmpAs = new List<Asignatura>();
+            var listatmpAl = new List<Alumno>();
+
+            foreach (var cur in Escuela.Cursos)
+            {
+                listatmpAs.AddRange(cur.Asignaturas);
+                listatmpAl.AddRange(cur.Alumnos);
+
+                foreach (var alum in cur.Alumnos)
+                {
+                    listatmp.AddRange(alum.Evaluaciones);
+                }
+            }
+
+            diccionario.Add(LlaveDiccionario.Evaluación, listatmp);
+            diccionario.Add(LlaveDiccionario.Asignatura, listatmpAs);
+            diccionario.Add(LlaveDiccionario.Alumno, listatmpAl);
+            
             return diccionario;
         }
 

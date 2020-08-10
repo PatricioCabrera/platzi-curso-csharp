@@ -26,6 +26,8 @@ namespace CoreEscuela
             {
                 WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
             }
+
+            Dictionary<LlaveDiccionario, IEnumerable<csharp.Entidades.ObjetoEscuelaBase>> dictmp = engine.GetDiccionarioObjetos();
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
