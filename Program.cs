@@ -15,7 +15,6 @@ namespace CoreEscuela
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
-            ImpimirCursosEscuela(engine.Escuela);
 
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
@@ -28,6 +27,8 @@ namespace CoreEscuela
             }
 
             Dictionary<LlaveDiccionario, IEnumerable<csharp.Entidades.ObjetoEscuelaBase>> dictmp = engine.GetDiccionarioObjetos();
+
+            engine.ImprimirDiccionario(dictmp, imprimirEval: true);
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
