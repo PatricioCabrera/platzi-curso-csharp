@@ -6,7 +6,7 @@ using CoreEscuela.Util;
 using csharp.Entidades;
 using Etapa1.Entidades;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
     public sealed class EscuelaEngine
     {
@@ -203,14 +203,13 @@ namespace CoreEscuela
         #region Métodos de carga
         private void CargarEvaluaciones()
         {
+            var rnd = new Random();
             foreach (Curso curso in Escuela.Cursos)
             {
                 foreach (Asignatura asignatura in curso.Asignaturas)
                 {
                     foreach (Alumno alumno in curso.Alumnos)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
-
                         Evaluación[] evArray = new Evaluación[5];
 
                         for (int i = 0; i < 5; i++)

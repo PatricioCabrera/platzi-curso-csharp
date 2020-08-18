@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreEscuela.App;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
 using Etapa1.Entidades;
@@ -12,23 +13,22 @@ namespace CoreEscuela
     {
         static void Main(string[] args)
         {
+            //AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+            //AppDomain.CurrentDomain.ProcessExit += (o, s)=> Printer.Beep(300,1000,1);
+
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
 
-            Dictionary<int, string> diccionario = new Dictionary<int, string>();
+            Reporteador reporteador = new Reporteador( engine.GetDiccionarioObjetos() );
+            IEnumerable<Evaluación> EvalList = reporteador.GetListaEvaluaciones();
+        }
 
-            diccionario.Add(10, "JuanK");
-            diccionario.Add(23, "Lorem Ipsum");
-
-            foreach ( var keyValPair in diccionario)
-            {
-                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
-            }
-
-            Dictionary<LlaveDiccionario, IEnumerable<csharp.Entidades.ObjetoEscuelaBase>> dictmp = engine.GetDiccionarioObjetos();
-
-            engine.ImprimirDiccionario(dictmp, imprimirEval: true);
+        private static void AccionDelEvento(object sender, EventArgs e)
+        {
+            Printer.WriteTitle("Saliendo");
+            Printer.Beep(2000, 1000, 3);
+            Printer.WriteTitle("Salió");
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
